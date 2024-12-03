@@ -3,7 +3,6 @@ from django.db import models
 
 class Agent(models.Model):
     agent_id = models.CharField(primary_key=True, max_length=50)
-    session = models.ForeignKey('Session', models.DO_NOTHING, blank=True, null=True)
     agent_first_name = models.CharField(max_length=100, blank=True, null=True)
     agent_last_name = models.CharField(max_length=100, blank=True, null=True) 
     agent_phone_nb = models.CharField(max_length=20, blank=True, null=True)   
