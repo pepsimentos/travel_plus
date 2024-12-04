@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<<<<<<< Updated upstream
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,18 @@
     <link rel="stylesheet" href="login.css"> <!-- Link to your CSS file -->
 </head>
 <body>
+=======
+  <head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In</title>
+    <link rel="stylesheet" href="{% static 'users/css/login.css' %}" />
+
+    <!-- Link to your CSS file -->
+  </head>
+  <body>
+>>>>>>> Stashed changes
     <div class="login-container">
         <div class="login-card">
             <div class="logo">
@@ -21,6 +34,19 @@
             <p class="forgot-password"><a href="#">Forgot Password?</a></p>
             <p>Don't have an account? <a href="/users/register/">Sign up</a></p>
         </div>
+<<<<<<< Updated upstream
+=======
+        <h2>Sign In</h2>
+        <form action="index.html">
+          <!-- Add your form submission target -->
+          <input type="email" placeholder="Enter your email" required />
+          <input type="password" placeholder="Enter your password" required />
+          <button type="submit" class="btn-login">Login</button>
+        </form>
+        <p class="forgot-password"><a href="#">Forgot Password?</a></p>
+        <p>Don't have an account? <a href="{% url 'register' %}">Sign up</a></p>
+      </div>
+>>>>>>> Stashed changes
     </div>
 </body>
 </html>

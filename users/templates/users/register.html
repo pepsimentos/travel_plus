@@ -1,37 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign Up Page</title>
-    <link rel="stylesheet" href="signup.css">
-</head>
-<body>
+    <link rel="stylesheet" href="{% static 'users/css/signup.css' %}" />
+  </head>
+  <body>
     <div class="signup-container">
-        <div class="signup-content">
-            <!-- Left Section -->
-            <div class="signup-image">
-                <img src= "C:\Users\User\Desktop\woman-swimsuit-sunbathing-lying-on-600nw-688987225.webp" alt="Relaxing on the beach">
-                <div class="signup-info">
-                    <h2>Get ready to:</h2>
-                    <ul>
-                        <li>✔ Save even more with reward rates from our partner sites</li>
-                        <li>✔ Easily pick up your search again from any device</li>
-                    </ul>
-                </div>
-            </div>
-            <!-- Right Section -->
-            <div class="signup-form">
-                <h2>Unlock more savings as a member</h2>
-                <p>Log in or create account with your email</p>
-                <input type="email" placeholder="Enter email address" required>
-                <input type="password" placeholder="Enter password" required>
-                <button class="btn-continue">Continue</button>
-                <div class="or-divider">
-                </div>
-                <p>Already have an account? <a href="/users/login/">Login</a></p>
-            </div>
+      <div class="signup-content">
+        <!-- Left Section -->
+        <div class="signup-image">
+          <img
+            src="C:\Users\User\Desktop\woman-swimsuit-sunbathing-lying-on-600nw-688987225.webp"
+            alt="Relaxing on the beach"
+          />
+          <div class="signup-info">
+            <h2>Get ready to:</h2>
+            <ul>
+              <li>✔ Save even more with reward rates from our partner sites</li>
+              <li>✔ Easily pick up your search again from any device</li>
+            </ul>
+          </div>
         </div>
+        <!-- Right Section -->
+        <div class="signup-form">
+          <h2>Unlock more savings as a member</h2>
+          <p>Log in or create account with your email</p>
+          <input type="email" placeholder="Enter email address" required />
+          <input type="password" placeholder="Enter password" required />
+          <button class="btn-continue">Continue</button>
+          <div class="or-divider"></div>
+          <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+        </div>
+      </div>
     </div>
-</body>
+  </body>
 </html>
