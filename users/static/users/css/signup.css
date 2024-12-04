@@ -1,0 +1,173 @@
+/* General Styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Container for Sign-Up Page */
+.signup-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    max-width: 800px;
+    /* box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); */ /* Remove or comment this line */
+    /* border-radius: 12px; */ /* Remove or comment this line */
+    background: #ffffff;
+    overflow: hidden;
+    padding: 0;
+}
+
+/* Content Inside */
+.signup-content {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+/* Left Section: Image and Info */
+.signup-image {
+    background-color: #55C7EA;
+    padding: 30px;
+    flex: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.signup-image img {
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+.signup-info {
+    margin-top: 20px;
+}
+
+.signup-info h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.signup-info ul {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+}
+
+.signup-info ul li {
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+/* Right Section: Form */
+.signup-form {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.signup-form .logo {
+    max-width: 150px;
+    margin-bottom: 20px;
+}
+
+.signup-form h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.signup-form p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.signup-form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.signup-form .btn-continue {
+    width: 100%;
+    padding: 12px;
+    background-color: #00aee3;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.signup-form .btn-continue:hover {
+    background-color: #429cb7;
+}
+
+/* Divider */
+.or-divider {
+    width: 100%;
+    text-align: center;
+    border-top: 1px solid #ddd;
+    margin: 20px 0;
+    position: relative;
+}
+
+.or-divider span {
+    position: absolute;
+    background: white;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0 10px;
+    font-size: 12px;
+    color: #666;
+}
+
+/* Social Buttons */
+.social-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.social-buttons button {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+
+
+/* Terms Text */
+.terms {
+    font-size: 12px;
+    color: #555;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.terms a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.terms a:hover {
+    text-decoration: underline;
+}
