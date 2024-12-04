@@ -1,0 +1,73 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background: #f4faff;
+    background-image: url('background-pattern.png'); /* Add your pattern image here */
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Makes sure the body takes up the full screen height */
+    margin: 0; /* Removes any default margin */
+}
+
+/* Login Container */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+/* Login Card */
+.login-card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    width: 350px; /* Fixed width for the card */
+    text-align: center;
+}
+
+/* Logo */
+.logo img {
+    margin-bottom: 0px;
+    margin-top: 10px;
+}
+
+/* Form Inputs */
+form input {
+    width: 100%; /* Makes sure input fields take up full width of their container */
+    padding: 12px;
+    margin: 10px 0; /* Consistent margin between input fields */
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box; /* Ensures padding is included in the element's total width */
+}
+
+/* Login Button */
+.btn-login {
+    width: 100%; /* Ensures the button also takes full width */
+    padding: 12px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-login:hover {
+    background-color: #0056b3;
+}
+
+/* Forgot Password and Signup */
+.forgot-password a, p a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.forgot-password a:hover, p a:hover {
+    text-decoration: underline;
+}
