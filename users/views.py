@@ -33,6 +33,10 @@ def loginPage(request):
     context = {}
     return render(request, 'users/login.html', context)
  
+def logoutUser(request):
+    logout(request)
+    return redirect('home')
+
 def confirm_email(request):
     return render(request, 'users/confirm_email.html')
 
