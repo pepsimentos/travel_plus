@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     path('register/', views.register, name='register'),  # User registration
-    path('login/', views.login, name='login'),      # User login
+    path('login/', views.loginPage, name='login'),      # User login
     path('logout/', views.logout, name='logout'),    # User logout
     path('confirm-email/<uidb64>/<token>/', views.confirm_email, name='confirm_email'),
     path('bookings/book_package/', views.book_vacation_package,name='book_vacation_package'),  # Booking URL
