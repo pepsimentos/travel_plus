@@ -1,0 +1,90 @@
+/* Navbar container */
+.navbar {
+    display: flex;  /* Make the navbar a flex container */
+    justify-content: space-between;  /* Space out the children (logo and links) */
+    align-items: center;  
+    background-color: #ffffff;
+    height: 55px;
+    padding: 10px 20px; 
+    position: fixed;  /* Fix the navbar to the top of the page */
+    top: 0;  
+    left: 0;  
+    width: 100%;  
+    z-index: 1000;  /* Ensure the navbar stays above other content */
+}
+
+/* Logo container */
+.navbar-logo-container {
+    flex: 1;  /* Take up available space for the logo container */
+    display: flex; 
+    margin-right: 0px;
+    margin-left: 160px;
+    justify-content: flex-start;  /* Align the logo to the left */
+}
+
+/* Logo styling */
+.navbar-logo {
+    height: 50px;  /* Adjust the size of the logo */
+    width: auto;
+    transition: transform 0.3s ease;  /* Smooth transition for the scaling effect */
+}
+
+.navbar-logo:hover {
+    transform: scale(1.1);  /* Increase size by 10% on hover */
+}
+
+/* Links container */
+.navbar-links {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    margin-right: 340px ;
+    display: flex;  /* Align the links horizontally */
+}
+
+/* Navbar links */
+.navbar-links li {
+    margin-left: 20px;  /* Space out the links */
+}
+
+/* Link styling */
+.navbar-links a {
+    display: inline-block;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    position: relative;  /* Allow positioning of pseudo-element */
+}
+
+/* Hover effect for links */
+.navbar-links a:hover {
+    color: #000000;  /* Change text color on hover */
+    
+}
+
+.navbar-links a::after {
+    content: '';  /* Creates an empty pseudo-element */
+    position: absolute;
+    left: 0;
+    bottom: 8px;  /* Position the line at the bottom of the link */
+    width: 0%;  
+    height: 2px;  /* Thickness of the line */
+    background-color: black;  /* Line color */
+    transition: width 0.3s ease;  /* Smooth transition for the line */
+}
+
+/* Expand the line on hover */
+.navbar-links a:hover::after {
+    width: 100%;  /* The line will stretch to 100% of the width */
+}
+
+
+.navbar-logo-container {
+    justify-content: center;  /* Centers the logo */
+}
+
+
+.navbar-links {
+    justify-content: flex-end;  /* Align the links to the right */
+}
