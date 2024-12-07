@@ -27,7 +27,7 @@ def loginPage(request):
         if user is not None: #if the user credentials are correct and the authentication went well authenticate the user
             login(request, user) #add the session into teh database and make sure the user logs in using built in login method of django
             return redirect('home') #after the user logs in redirect them to home
-        else
+        else:
             messages.error(request, 'email or password does not exist') #throw a flash message if the  credentials aare wrong
 
     context = {}
