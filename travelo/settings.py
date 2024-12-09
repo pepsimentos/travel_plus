@@ -81,11 +81,17 @@ DATABASES = {
         'NAME': 'travelo_db',
         'USER': 'traveloeditor',
         'PASSWORD': 'DBsys123',
-        'HOST': 'localhost', 
-        'PORT': '3306',       
+        'HOST': 'localhost',
+        'PORT': '3306',
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+        },
     }
 }
 
+
+# Custom User Model
+AUTH_USER_MODEL = 'users.CustomUser'
 
 
 # Password validation
