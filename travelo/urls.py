@@ -16,10 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from users import views
+from users.views import homePage 
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', views.home, name='home'),  # Home page
-    path('admin/', admin.site.urls),    # Admin site
-    path('users/', include('users.urls')),  # Users and booking-related URLs
+    path('', homePage, name='home'), #landing page 
+    path('admin/', admin.site.urls),                  # Admin site
+    path('users/', include('users.urls')),            # Custom app URLs
+    path('accounts/', include('django.contrib.auth.urls')),  # Built-in auth URLs
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.BASE_DIR / "static")
+

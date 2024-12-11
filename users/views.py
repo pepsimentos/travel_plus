@@ -8,6 +8,9 @@ from .models import Agent, Package, Books
 # Use the custom user model
 User = get_user_model()
 
+def homePage(request):
+    return render(request, 'users/home.html')  
+
 def loginPage(request):
     if request.method == 'POST':
         username = request.POST.get('username')

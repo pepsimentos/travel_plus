@@ -1,7 +1,7 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    {% load static %}
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign Up Page</title>
@@ -13,7 +13,7 @@
         <!-- Left Section -->
         <div class="signup-image">
           <img
-            src="C:\Users\User\Desktop\woman-swimsuit-sunbathing-lying-on-600nw-688987225.webp"
+            src="{% static 'users/images/onBeach.jpg' %}"
             alt="Relaxing on the beach"
           />
           <div class="signup-info">
@@ -30,9 +30,27 @@
           <p>Log in or create account with your email</p>
           <form action="{% url 'register' %}" method="post">
             {% csrf_token %}
-            <input type="text" name="username" placeholder="Enter username" required /> <!-- Added username field -->
-            <input type="email" name="email" placeholder="Enter email address" required /> <!-- Updated to include 'name' attribute -->
-            <input type="password" name="password" placeholder="Enter password" required /> <!-- Updated to include 'name' attribute -->
+            <input
+              type="text"
+              name="username"
+              placeholder="Enter username"
+              required
+            />
+            <!-- Added username field -->
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter email address"
+              required
+            />
+            <!-- Updated to include 'name' attribute -->
+            <input
+              type="password"
+              name="password"
+              placeholder="Enter password"
+              required
+            />
+            <!-- Updated to include 'name' attribute -->
             <button type="submit" class="btn-continue">Continue</button>
           </form>
           <div class="or-divider"></div>
