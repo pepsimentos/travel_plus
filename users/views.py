@@ -65,6 +65,9 @@ def registerPage(request):
     return render(request, 'users/register.html')
 
 
+def success_page(request):
+    return render(request, "users/success.html")
+
 @login_required
 def home(request):
     return render(request, 'users/home.html')
@@ -99,3 +102,24 @@ def book_vacation_package(request):
             return JsonResponse({'success': False, 'error': str(e)})
 
     return render(request, 'bookings/book_package.html')
+
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from .models import Flight, FlightBooking
+
+
+@login_required
+def book_flight(request):
+    if request.method == "POST":
+        flight_id = request.POST.get("flight_id")
+        flight = Flight.objects.get(pk=flight_id)
+        
+        # Create a FlightBooking for the user
+        FlightBooking.objects.create(
+            user=request.user,
+            flight=flight
+        )
+        return redirect("success_page")  # Redirect after successful booking
+    
+    flights = Flight.objects.all()
+    return render(request, "users/book_flight.html", {"flights": flights})

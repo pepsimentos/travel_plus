@@ -1,0 +1,14 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Booking Successful</title>
+  </head>
+  <body>
+    <h1>Success!</h1>
+    <p>Your flight has been booked successfully.</p>
+    <a href="{% url 'book_flight' %}">Book Another Flight</a> |
+    <a href="{% url 'home' %}">Return to Home</a>
+  </body>
+</html>
