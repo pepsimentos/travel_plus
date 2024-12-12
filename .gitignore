@@ -22,10 +22,6 @@ __pycache__/
 # Ignore Django secret keys and sensitive data files
 *.env
 
-# Ignore static files if you have them collected locally
-/staticfiles/
-/static/
-
 # Ignore IDE/editor settings and other system files
 .vscode/
 .idea/
