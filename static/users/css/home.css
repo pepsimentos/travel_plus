@@ -1,0 +1,265 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    padding-top: 60px;  /* Adjust this value to prevent content from hiding behind the navbar */
+}
+
+/* Hero Section */
+.hero {
+    background-color: #002244;
+    color: white;
+    text-align: left;
+    padding: 120px 20px;
+}
+
+.hero h2 {
+    font-size: 51px;
+    margin-left: 240px;
+    margin-bottom: 0;
+}
+
+.hero p {
+    font-size: 26px;
+    margin: 10px 0 20px;
+    margin-left: 240px;
+    margin-bottom: -80px;
+}
+
+/* Search Bar */
+.search-bar {
+    background-color: #f1f1f1;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Form container */
+.search-form {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 80%;  /* Adjust width to make the search bar longer */
+    margin: 0 auto;  /* Center the search bar */
+}
+
+/* Input and select fields */
+.search-form input,
+.search-form select {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 200px; /* Increase the width to make the input fields longer */
+}
+
+/* Button */
+.search-form button {
+    padding: 10px 20px;
+    background-color: #0071c2;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* Button hover effect */
+.search-form button:hover {
+    background-color: #005bb5;
+}
+
+
+/*dropdown*/
+.dropdown {
+    position: relative;
+    display: inline-block;
+    margin: 20px;
+}
+
+.dropdown-toggler {
+    display: block;
+    cursor: pointer;
+    background-color: #ffffff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    margin: -17px;
+    height: 19px;
+}
+
+.dropdown-toggle {
+    display: none;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 120%;
+    left: 0;
+    transform: translateY(10px);
+    background-color: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    z-index: 100;
+    min-width: 200px; /* Reduced the width here */
+}
+
+.dropdown-toggle:checked + .dropdown-toggler + .dropdown-menu {
+    display: block;
+}
+
+.dropdown-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.dropdown-item label {
+    flex: 1;
+}
+
+.dropdown-item span {
+    width: 30px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.dropdown-item button {
+    background-color: #0071c2;
+    border: none;
+    border-radius: 4px;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;  /* Use flexbox */
+    justify-content: center;  /* Center horizontally */
+    align-items: center;  /* Center vertically */
+    text-align: center;  /* Align text */
+}
+
+.dropdown-item button:hover {
+    background-color: #0056b3;
+}
+
+.children-ages {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Creates two equal-width columns */
+    gap: 10px; /* Adds space between the inputs */
+}
+
+.children-ages input {
+    width: 100%; /* Makes the input box fill the available space */
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.btn-done {
+    margin-top: 10px;
+    background-color: #007bff;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-done:hover {
+    background-color: #0056b3;
+}
+
+/* Trending Destinations Section */
+.trending-destinations {
+    padding: 50px 20px;
+    text-align: center;
+    background-color: #ffffff;
+}
+
+.trending-destinations h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    margin-top: 70px;
+    text-align: left;
+    margin-left: 195px;
+}
+
+.trending-destinations p {
+    color: #555;
+    margin-bottom: 30px;
+    text-align: left;
+    margin-left: 195px;
+}
+
+/* Updated: Center the grid with horizontal padding or margin */
+.destinations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    column-gap: 1px;
+    row-gap: 20px;
+    margin: 0 auto; /* Center the grid */
+    padding: 0 20px; /* Add horizontal padding */
+    max-width: 1200px; /* Optional: Restrict the grid width */
+}
+
+.destination-card {
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    height: 200px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: 10px ;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    margin-left: 20px;
+}
+
+.destination-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.7));
+    z-index: 1;
+}
+
+.destination-card-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.destination-info {
+    position: relative;
+    z-index: 2;
+}
+
+.destination-info h3 {
+    font-size: 20px;
+    margin-top: -200px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.destination-info p {
+    color: #ffffff;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    margin-top: -15px;
+    margin-left: 0px;
+}
+

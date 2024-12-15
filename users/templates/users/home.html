@@ -1,15 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Welcome to Travelo</title>
-  </head>
-  <body>
-    <h1>Welcome to Travelo!</h1>
-    <p>Your one-stop solution for vacation packages, flights, and hotels.</p>
-    <nav>
-      <a href="{% url 'login' %}">Login</a> |
-      <a href="{% url 'register' %}">Register</a>
-    </nav>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snap Travel</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+</head>
+<body>
+
+
+  {% include 'navbar.html' %}
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Find your next stay</h2>
+            <p>Search deals on hotels, flights, and much more...</p>
+            <!---button class="btn btn-primary">Explore deals</button-->
+        </div>
+    </section>
+
+    <!-- Search Bar -->
+    <section class="search-bar">
+        <form class="search-form">
+            <input type="text" placeholder="Where are you going?" />
+            <input type="date" />
+            <input type="date" />
+            <div class="dropdown">
+                <input type="checkbox" id="dropdown-toggle" class="dropdown-toggle">
+                <label for="dropdown-toggle" class="dropdown-toggler">2 adults · 0 children · 1 room</label>
+                <div class="dropdown-menu">
+                    <div class="dropdown-item">
+                        <label for="adults-count">Adults</label>
+                        <button class="minus-btn" data-type="adults">-</button>
+                        <span id="adults-count">2</span>
+                        <button class="plus-btn" data-type="adults">+</button>
+                    </div>
+                    
+                    <div class="dropdown-item">
+                        <label for="children-count">Children</label>
+                        <button class="minus-btn" data-type="children">-</button>
+                        <span id="children-count">0</span>
+                        <button class="plus-btn" data-type="children">+</button>
+                    </div>
+                    
+                    <div id="children-ages" class="children-ages" style="display: none;">
+                        <label>Children's Ages</label>
+                        <!-- Dynamically added inputs will appear here -->
+                    </div>
+                    
+                    <div class="dropdown-item">
+                        <label for="rooms-count">Rooms</label>
+                        <button class="minus-btn" data-type="rooms">-</button>
+                        <span id="rooms-count">1</span>
+                        <button class="plus-btn" data-type="rooms">+</button>
+                    </div>
+                    
+                    <button class="btn-done">Done</button>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+    </section>
+    
+    
+    <section class="trending-destinations">
+        <h2>Trending destinations</h2>
+        <p>Most popular choices for travelers from Lebanon</p>
+        
+        <!-- Add a wrapper for the grid -->
+        <div class="destinations-wrapper">
+            <div class="destinations-grid">
+                <!-- Destination Card 1 -->
+                <img 
+                src="{% static 'users/images/istanbul.jpg' %}" 
+                alt="Istanbul" 
+                class="destination-card-image" >
+                    <div class="destination-info">
+                        <h3>Istanbul <span>🇹🇷</span></h3>
+                        <p>Average price US$115.19</p>
+                    </div>
+                </div>
+                <!-- Destination Card 2 -->
+                <img 
+                src="{% static 'users/images/Tour-Eiffel.jpg' %}" 
+                alt="Paris" 
+                class="destination-card-image">
+                    <div class="destination-info">
+                        <h3>Paris <span>🇫🇷</span></h3>
+                        <p>Average price US$329.46</p>
+                    </div>
+                </div>
+                <!-- Destination Card 3 -->
+                <img 
+                src="{% static 'users/images/dubai.jpg' %}" 
+                alt="Dubai" 
+                class="destination-card-image" >
+                    <div class="destination-info">
+                        <h3>Dubai <span>🇦🇪</span></h3>
+                        <p>Average price US$356.60</p>
+                    </div>
+                </div>
+                <!-- Destination Card 4 -->
+                <img 
+                src="{% static 'users/images/Athens.jpg' %}" 
+                alt="Athens" 
+                class="destination-card-image" >
+                    <div class="destination-info">
+                        <h3>Athens <span>🇬🇷</span></h3>
+                        <p>Average price US$119.68</p>
+                    </div>
+                </div>
+                <!-- Destination Card 5 -->
+                <img 
+                src="{% static 'users/images/newyork.jpg' %}" 
+                alt="New York" 
+                class="destination-card-image" >
+                    <div class="destination-info">
+                        <h3>New York <span>🇺🇸</span></h3>
+                        <p>Average price US$725.07</p>
+                    </div>
+                </div>
+                <!-- Destination Card 6 -->
+                <img 
+                src="{% static 'users/images/japan.jpg' %}" 
+                alt="Japan" 
+                class="destination-card-image" >
+                  <div class="destination-info">
+                        <h3>Japan <span>🇨🇳</span></h3>
+                        <p>Average price US$400.07</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    
+    <script src="{% static 'hoteldescdrop.js' %}"></script>
+
+
+</body>
 </html>
