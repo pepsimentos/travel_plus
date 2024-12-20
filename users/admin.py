@@ -31,7 +31,6 @@ class HotelBookingAdmin(admin.ModelAdmin):
     search_fields = ('user__username', 'hotel__hotel_city')
     list_filter = ('start_date', 'end_date')
 
-
 # Register the Agent model in admin
 @admin.register(Agent)
 class AgentAdmin(admin.ModelAdmin):
@@ -44,15 +43,3 @@ class PackageAdmin(admin.ModelAdmin):
     list_display = ('package_id', 'pkg_start_date', 'pkg_end_date', 'pkg_destination', 'package_price', 'agent')
     search_fields = ('pkg_destination', 'agent__agent_first_name', 'agent__agent_last_name')
     list_filter = ('pkg_start_date', 'pkg_end_date', 'agent')
-
-@admin.register(Hotel)
-class HotelAdmin(admin.ModelAdmin):
-    list_display = ('hotel_id', 'hotel_city', 'start_stay', 'end_stay', 'room_type', 'available_rooms')
-    search_fields = ('hotel_id', 'hotel_city', 'room_type')
-    list_filter = ('hotel_city', 'room_type', 'start_stay', 'end_stay')
-
-@admin.register(Package)
-class PackageAdmin(admin.ModelAdmin):
-    list_display = ('package_id', 'pkg_start_date', 'pkg_end_date', 'pkg_destination', 'package_price', 'agent')
-    search_fields = ('package_id', 'pkg_destination', 'agent__agent_first_name', 'agent__agent_last_name')
-    list_filter = ('pkg_start_date', 'pkg_end_date', 'pkg_destination', 'agent')
