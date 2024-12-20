@@ -18,99 +18,88 @@
       </div>
     </section>
 
-    <!-- Search Bar -->
-    <section class="search-bar">
-      <form class="search-form" method="GET" action="{% url 'list_flights' %}">
-        <!-- Search Destination -->
-        <input
-          list="cities"
-          name="destination"
-          placeholder="Where are you going?"
-          required
-        />
-        <datalist id="cities"></datalist>
+   <!-- Search Bar -->
+<section class="search-bar">
+  <form class="search-form" method="GET" action="{% url 'list_flights' %}">
+    <!-- Search Destination -->
+    <input
+      list="cities"
+      name="destination"
+      placeholder="Where are you going?"
+      required
+    />
+    <datalist id="cities"></datalist>
 
-        <!-- Start Date -->
-        <input
-          type="date"
-          name="start_date"
-          placeholder="Start Date"
-          required
-        />
+    <!-- Start Date -->
+    <input
+      type="date"
+      name="start_date"
+      placeholder="Start Date"
+      required
+    />
 
-        <!-- End Date -->
-        <input
-          type="date"
-          name="end_date"
-          id="end_date"
-          placeholder="End Date"
-        />
+    <!-- End Date -->
+    <input
+      type="date"
+      name="end_date"
+      id="end_date"
+      placeholder="End Date"
+    />
 
-        <!-- Checkbox for One Way -->
-        <div style="display: inline-flex; align-items: center; gap: 0.05rem">
-          <label style="display: flex; align-items: center; cursor: pointer">
-            <input
-              type="checkbox"
-              id="one_way_checkbox"
-              style="accent-color: #007bff; margin-right: 0.5rem"
-            />
-            <span style="font-size: 1rem; font-weight: 500">One way</span>
-          </label>
+    <!-- Checkbox for One Way -->
+    <div class="checkbox-container">
+      <label>
+        <input
+          type="checkbox"
+          id="one_way_checkbox"
+          style="accent-color: #007bff;"
+        />
+        One way
+      </label>
+    </div>
+
+    <!-- Dropdown for Passengers -->
+    <div class="dropdown">
+      <input type="checkbox" id="dropdown-toggle" class="dropdown-toggle" />
+      <label for="dropdown-toggle" class="dropdown-toggler">
+        2 adults · 0 children · 1 room
+      </label>
+      <div class="dropdown-menu">
+        <div class="dropdown-item">
+          <label>Adults</label>
+          <button type="button" class="minus-btn" data-type="adults">-</button>
+          <span id="adults-count">2</span>
+          <button type="button" class="plus-btn" data-type="adults">+</button>
         </div>
 
-        <!-- Dropdown for Passengers -->
-        <div class="dropdown">
-          <input type="checkbox" id="dropdown-toggle" class="dropdown-toggle" />
-          <label for="dropdown-toggle" class="dropdown-toggler">
-            2 adults · 0 children · 1 room
-          </label>
-          <div class="dropdown-menu">
-            <div class="dropdown-item">
-              <label>Adults</label>
-              <button type="button" class="minus-btn" data-type="adults">
-                -
-              </button>
-              <span id="adults-count">2</span>
-              <button type="button" class="plus-btn" data-type="adults">
-                +
-              </button>
-            </div>
-
-            <div class="dropdown-item">
-              <label>Children</label>
-              <button type="button" class="minus-btn" data-type="children">
-                -
-              </button>
-              <span id="children-count">0</span>
-              <button type="button" class="plus-btn" data-type="children">
-                +
-              </button>
-            </div>
-
-            <div id="children-ages" class="children-ages" style="display: none">
-              <label>Children's Ages</label>
-              <!-- Dynamically added inputs will appear here -->
-            </div>
-
-            <div class="dropdown-item">
-              <label>Rooms</label>
-              <button type="button" class="minus-btn" data-type="rooms">
-                -
-              </button>
-              <span id="rooms-count">1</span>
-              <button type="button" class="plus-btn" data-type="rooms">
-                +
-              </button>
-            </div>
-
-            <button type="button" class="btn-done">Done</button>
-          </div>
+        <div class="dropdown-item">
+          <label>Children</label>
+          <button type="button" class="minus-btn" data-type="children">-</button>
+          <span id="children-count">0</span>
+          <button type="button" class="plus-btn" data-type="children">+</button>
         </div>
 
-        <!-- Submit Button -->
-        <button type="submit" class="btn btn-primary">Search</button>
-      </form>
-    </section>
+        <div id="children-ages" class="children-ages" style="display: none">
+          <label>Children's Ages</label>
+          <!-- Dynamically added inputs will appear here -->
+        </div>
+
+        <div class="dropdown-item">
+          <label>Rooms</label>
+          <button type="button" class="minus-btn" data-type="rooms">-</button>
+          <span id="rooms-count">1</span>
+          <button type="button" class="plus-btn" data-type="rooms">+</button>
+        </div>
+
+        <button type="button" class="btn-done">Done</button>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary">Search</button>
+  </form>
+</section>
+
 
     <!-- Trending Destinations Section -->
     <section class="trending-destinations">

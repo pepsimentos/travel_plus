@@ -33,17 +33,20 @@ body {
   background-color: #f1f1f1;
   padding: 20px;
   text-align: center;
+  display: flex; /* Add flexbox for better alignment */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Align items vertically */
 }
 
 /* Form container */
 .search-form {
   display: flex;
-  gap: 10px;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  width: 80%; /* Adjust width to make the search bar longer */
-  margin: 0 auto; /* Center the search bar */
+  gap: 15px; /* Increase gap for consistent spacing */
+  justify-content: flex-start; /* Align all elements from the start */
+  align-items: center; /* Align vertically */
+  flex-wrap: nowrap; /* Prevent wrapping */
+  max-width: 1200px; /* Adjust max width for consistent layout */
+  margin: 0 auto;
 }
 
 /* Input and select fields */
@@ -53,59 +56,55 @@ body {
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  width: 200px; /* Increase the width to make the input fields longer */
+  width: 180px; /* Ensure consistent input widths */
+  box-sizing: border-box;
 }
 
-/* Button */
-.search-form button {
-  padding: 10px 20px;
-  background-color: #0071c2;
-  color: white;
-  border: none;
+.search-form input::placeholder {
+  color: #888; /* Placeholder text color */
+}
+
+/* Checkbox and label */
+.search-form .checkbox-container {
+  display: flex;
+  align-items: center; /* Align checkbox and label */
+  gap: 5px; /* Space between checkbox and label */
+  font-size: 14px; /* Smaller font size for the label */
+}
+
+.search-form .checkbox-container label {
   cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 
-/* Button hover effect */
-.search-form button:hover {
-  background-color: #005bb5;
-}
-
-/*dropdown*/
+/* Dropdown container */
 .dropdown {
   position: relative;
   display: inline-block;
-  margin: 20px;
 }
 
 .dropdown-toggler {
-  display: block;
   cursor: pointer;
-  background-color: #ffffff;
   padding: 10px;
+  font-size: 16px;
+  background-color: white;
   border: 1px solid #ccc;
   border-radius: 4px;
-  font-size: 14px;
-  margin: -17px;
-  height: 19px;
-}
-
-.dropdown-toggle {
-  display: none;
 }
 
 .dropdown-menu {
   display: none;
   position: absolute;
-  top: 120%;
+  top: 100%;
   left: 0;
-  transform: translateY(10px);
   background-color: white;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   padding: 15px;
   border: 1px solid #ccc;
-  border-radius: 8px;
-  z-index: 100;
-  min-width: 200px; /* Reduced the width here */
+  border-radius: 4px;
+  z-index: 10;
+  min-width: 250px;
 }
 
 .dropdown-toggle:checked + .dropdown-toggler + .dropdown-menu {
@@ -114,66 +113,54 @@ body {
 
 .dropdown-item {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin: 10px 0;
-}
-
-.dropdown-item label {
-  flex: 1;
-}
-
-.dropdown-item span {
-  width: 30px;
-  text-align: center;
-  font-size: 14px;
+  justify-content: space-between;
+  margin-bottom: 10px;
 }
 
 .dropdown-item button {
   background-color: #0071c2;
+  color: white;
   border: none;
   border-radius: 4px;
   width: 25px;
   height: 25px;
   cursor: pointer;
-  font-size: 16px;
-  display: flex; /* Use flexbox */
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  text-align: center; /* Align text */
 }
 
 .dropdown-item button:hover {
-  background-color: #0056b3;
-}
-
-.children-ages {
-  margin-top: 10px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Creates two equal-width columns */
-  gap: 10px; /* Adds space between the inputs */
-}
-
-.children-ages input {
-  width: 100%; /* Makes the input box fill the available space */
-  padding: 5px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
+  background-color: #005bb5;
 }
 
 .btn-done {
   margin-top: 10px;
-  background-color: #007bff;
+  background-color: #0071c2;
   color: white;
   padding: 8px 12px;
   border: none;
-  border-radius: 6px;
+  border-radius: 4px;
   cursor: pointer;
 }
 
 .btn-done:hover {
-  background-color: #0056b3;
+  background-color: #005bb5;
 }
+
+/* Button */
+.search-form button {
+  padding: 10px 20px;
+  background-color: #0071c2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.search-form button:hover {
+  background-color: #005bb5;
+}
+
 
 /* Trending Destinations Section */
 .trending-destinations {
