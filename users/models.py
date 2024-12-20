@@ -45,8 +45,7 @@ class Branch(models.Model):
     def __str__(self):
         return f"{self.branch_country} - {self.branch_nb}"
 
-
-# Flight Table
+# Flight Model
 class Flight(models.Model):
     flight_id = models.CharField(primary_key=True, max_length=50)
     flight_number = models.CharField(max_length=50, blank=True, null=True)
@@ -56,12 +55,22 @@ class Flight(models.Model):
     landing_time = models.TimeField(blank=True, null=True)
     flight_date = models.DateField(blank=True, null=True)
     flight_class = models.CharField(max_length=20, blank=True, null=True)
+    available_seats = models.PositiveIntegerField(default=0)  # New field
 
     class Meta:
         db_table = 'flight'
 
-    def __str__(self):
-        return f"{self.flight_number} ({self.start_city} -> {self.end_city})"
+# Hotel Model
+class Hotel(models.Model):
+    hotel_id = models.CharField(primary_key=True, max_length=50)
+    start_stay = models.DateField(blank=True, null=True)
+    end_stay = models.DateField(blank=True, null=True)
+    hotel_city = models.CharField(max_length=100, blank=True, null=True)
+    room_type = models.CharField(max_length=50, blank=True, null=True)
+    available_rooms = models.PositiveIntegerField(default=0)  # New field
+
+    class Meta:
+        db_table = 'hotel'
 
 
 # FlightBooking Table
@@ -75,22 +84,6 @@ class FlightBooking(models.Model):
 
     def __str__(self):
         return f"{self.user} - {self.flight}"
-
-
-# Hotel Table
-class Hotel(models.Model):
-    hotel_id = models.CharField(primary_key=True, max_length=50)
-    start_stay = models.DateField(blank=True, null=True)
-    end_stay = models.DateField(blank=True, null=True)
-    hotel_city = models.CharField(max_length=100, blank=True, null=True)
-    room_type = models.CharField(max_length=50, blank=True, null=True)
-
-    class Meta:
-        db_table = 'hotel'
-
-    def __str__(self):
-        return f"Hotel in {self.hotel_city} ({self.room_type})"
-
 
 # HotelBooking Table
 class HotelBooking(models.Model):

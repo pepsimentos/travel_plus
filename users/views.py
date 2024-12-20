@@ -3,7 +3,8 @@ from django.http import JsonResponse, HttpResponseForbidden
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.decorators import login_required
-from .models import Agent, Package, Books
+from .models import Agent, Package, Books, Flight, FlightBooking, Hotel, HotelBooking
+from django.db import transaction
 
 # Use the custom user model
 User = get_user_model()
@@ -103,23 +104,56 @@ def book_vacation_package(request):
 
     return render(request, 'bookings/book_package.html')
 
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
-from .models import Flight, FlightBooking
+
+@login_required
+@transaction.atomic  # Ensures atomicity (all-or-nothing database operation)
+def book_flight(request, flight_id):
+    flight = get_object_or_404(Flight, flight_id=flight_id)
+
+    # Check for seat availability
+    if flight.available_seats <= 0:
+        messages.error(request, "Sorry, no seats are available on this flight.")
+        return redirect('list_flights')  # Redirect back to the flight list page
+
+    # Create a booking and update seat count
+    flight.available_seats -= 1
+    flight.save()
+
+    FlightBooking.objects.create(user=request.user, flight=flight)
+    messages.success(request, f"You have successfully booked flight {flight.flight_number}!")
+
+    return redirect('success_page')  # Redirect to a success page
+
+# View to list all available flights
+def list_flights(request):
+    query = request.GET.get('destination')  # Get the search query from the form
+    if query:
+        flights = Flight.objects.filter(end_city__icontains=query)  # Case-insensitive filter
+    else:
+        flights = Flight.objects.all()  # Show all flights if no query
+    return render(request, 'users/flight_list.html', {'flights': flights, 'query': query})
 
 
 @login_required
-def book_flight(request):
-    if request.method == "POST":
-        flight_id = request.POST.get("flight_id")
-        flight = Flight.objects.get(pk=flight_id)
-        
-        # Create a FlightBooking for the user
-        FlightBooking.objects.create(
-            user=request.user,
-            flight=flight
-        )
-        return redirect("success_page")  # Redirect after successful booking
-    
-    flights = Flight.objects.all()
-    return render(request, "users/book_flight.html", {"flights": flights})
+@transaction.atomic
+def book_hotel(request, hotel_id):
+    hotel = get_object_or_404(Hotel, hotel_id=hotel_id)
+
+    # Check for room availability
+    if hotel.available_rooms <= 0:
+        messages.error(request, "Sorry, no rooms are available at this hotel.")
+        return redirect('list_hotels')  # Redirect back to the hotel list page
+
+    # Create a booking and update room count
+    hotel.available_rooms -= 1
+    hotel.save()
+
+    HotelBooking.objects.create(
+        user=request.user,
+        hotel=hotel,
+        start_date=request.POST.get('start_date'),
+        end_date=request.POST.get('end_date')
+    )
+    messages.success(request, f"Hotel room successfully booked in {hotel.hotel_city}!")
+
+    return redirect('success_page')
