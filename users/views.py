@@ -41,7 +41,7 @@ def home(request):
     return render(request, 'users/home.html')
 
 # ================== PACKAGE VIEWS ==================
-@login_required
+#@login_required
 def package_details(request, package_id):
     # Fetch the package details
     package = get_object_or_404(Package, pk=package_id)
@@ -199,7 +199,6 @@ def registerPage(request):
 
     return render(request, 'users/register.html')
 
-@login_required
 def packages_list(request):
     packages = Package.objects.all()
     context = {
