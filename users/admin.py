@@ -50,3 +50,9 @@ class HotelAdmin(admin.ModelAdmin):
     list_display = ('hotel_id', 'hotel_city', 'start_stay', 'end_stay', 'room_type', 'available_rooms')
     search_fields = ('hotel_id', 'hotel_city', 'room_type')
     list_filter = ('hotel_city', 'room_type', 'start_stay', 'end_stay')
+
+@admin.register(Package)
+class PackageAdmin(admin.ModelAdmin):
+    list_display = ('package_id', 'pkg_start_date', 'pkg_end_date', 'pkg_destination', 'package_price', 'agent')
+    search_fields = ('package_id', 'pkg_destination', 'agent__agent_first_name', 'agent__agent_last_name')
+    list_filter = ('pkg_start_date', 'pkg_end_date', 'pkg_destination', 'agent')
