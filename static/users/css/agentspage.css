@@ -1,0 +1,101 @@
+/* Cards */
+.custom-card {
+    width: 100%;
+    max-width: 250px;
+    margin: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Add hover effect */
+  }
+  
+  .card-img-top {
+    height: 150px;
+    object-fit: cover; /* Ensure image fits properly */
+  }
+  
+  /* Hover effect for cards */
+  .custom-card:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+  }
+  
+  /* Section spacing */
+  #section-title {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .section-subtitle {
+    font-size: 1.8em; /* Overall font size */
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    margin: 20px 0;
+    line-height: 1.5; /* Spacing between the two lines */
+    margin-top: 70px;
+    margin-bottom: 30px;
+  }
+  
+  .subtitle-line-1 {
+    color: #0062cb; /* Bright blue for emphasis */
+    font-weight: bold;
+  }
+  
+  .subtitle-line-2 {
+    color: #333; /* Neutral color for balance */
+  }
+  
+  /* Add space below */
+  .footer-space {
+    height: 70px; /* Add 100px of empty space at the end of the page */
+    background: transparent;
+  }
+  
+  /* Cards with shadow */
+  .card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important; /* Add shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease !important; /* Smooth hover */
+  }
+  
+  .card:hover {
+    transform: scale(1.05); /* Slight zoom on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow */transform: scale(1.05); /* Slight zoom on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+  }
+  
+  /* Add space below the page */
+  .footer-space {
+    height: 150px; /* Empty space at the bottom */
+  }
+  
+  /* Responsive Design */
+  @media screen and (max-width: 768px) {
+    .navbar {
+      flex-direction: column;
+      height: auto;
+      text-align: center;
+    }
+  
+    .navbar-links {
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+  
+  /* Responsive Design */
+  @media screen and (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        height: auto;
+        gap: 10px;
+        text-align: center;
+    }
+  
+    .navbar-links {
+        margin-right: 0;
+        flex-direction: column;
+        gap: 10px;
+    }
+  
+    .custom-card {
+        max-width: 100%;
+    }
+  }
