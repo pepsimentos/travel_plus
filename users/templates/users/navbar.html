@@ -21,7 +21,7 @@
       <ul class="navbar-links">
         <li><a href="{% url 'packages_list' %}">PACKAGES</a></li>
         <li><a href="{% url 'list_flights' %}">FLIGHTS</a></li>
-        <li><a href="#">HOTELS</a></li>
+        <li><a href="{% url 'hotels_page' %}">HOTELS</a></li>
 
         <li>
           {% if request.user.is_authenticated %}

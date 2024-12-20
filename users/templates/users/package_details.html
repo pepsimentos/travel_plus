@@ -6,91 +6,83 @@
     <title>Package Details</title>
     <style>
         body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f9f9f9;
-    color: #333;
-}
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
 
-header {
-    background-color: #0078d7;
-    color: white;
-    padding: 20px 0;
-    text-align: center;
-    font-size: 1.5rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin: 0; /* Removed margin to eliminate gap at the top */
-}
+        header {
+            background-color: #0078d7;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
 
-main {
-    padding: 20px;
-    max-width: 800px;
-    margin: 0 auto;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    position: relative; /* Ensures positioning for book button */
-}
+        main {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
 
-.details {
-    padding: 20px;
-    line-height: 1.6;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    background-color: #ffffff;
-    border: 2px solid #ffffff;
-    transition: transform 0.3s;
-    position: relative; /* Ensures positioning for the book button */
-}
+        .details {
+            display: none; /* Hide all sections initially */
+            padding: 20px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            background-color: #ffffff;
+            border: 2px solid #ffffff;
+        }
 
-/*.details:hover {
-    transform: scale(1.02);
-}*/
+        .details.active {
+            display: block; /* Show the active section */
+        }
 
-.details h2 {
-    color: #0078d7;
-    margin-bottom: 10px;
-}
+        .details h2 {
+            color: #0078d7;
+            margin-bottom: 10px;
+        }
 
-.details p {
-    margin: 5px 0;
-}
+        .details p {
+            margin: 5px 0;
+        }
 
-.back-button {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 15px;
-    background-color: #0078d7;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #0078d7;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
 
-.back-button:hover {
-    background-color: #005bb5;
-}
+        .back-button:hover {
+            background-color: #005bb5;
+        }
 
-/* Book button styles */
-.book-button {
-    display: inline-block;
-    position: absolute; /* Position the button relative to the .details box */
-    top: 50%; /* Vertically center it */
-    right: 20px; /* Position it 20px from the right */
-    margin-top: 20px;
-    padding: 10px 15px;
-    background-color: #429cb7; 
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
+        .book-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #429cb7;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
 
-.book-button:hover {
-    background-color: #2e768b; /* Darker green on hover */
-}
-
+        .book-button:hover {
+            background-color: #2e768b;
+        }
     </style>
     {% load static %}
 </head>
@@ -101,7 +93,7 @@ main {
     </header>
     
     <main>
-        <section id="paris" class="details">
+        <section id=1 class="details">
             <h2>Destination: Paris</h2>
             <p><strong>Flight Booked:</strong> Air France, Direct Flight</p>
             <p><strong>Dates:</strong> June 10, 2024 - June 20, 2024</p>
@@ -109,7 +101,7 @@ main {
             <p><strong>Description:</strong> Explore the city of love with guided tours to the Eiffel Tower, Louvre Museum, and Seine River cruises. Accommodation in a 4-star hotel with complimentary breakfast.</p>
             <a href="{% url 'home' %}" class="book-button">Book Now</a>
         </section>
-        <section id="bali" class="details">
+        <section id=2 class="details">
             <h2>Destination: Bali</h2>
             <p><strong>Flight Booked:</strong> Garuda Indonesia, Direct Flight</p>
             <p><strong>Dates:</strong> July 5, 2024 - July 15, 2024</p>
@@ -117,7 +109,7 @@ main {
             <p><strong>Description:</strong> Relax on beautiful beaches, enjoy luxury resorts, and explore cultural landmarks. Includes spa treatments and daily excursions.</p>
             <a href="{% url 'home' %}" class="book-button">Book Now</a>
         </section>
-        <section id="tokyo" class="details">
+        <section id=3 class="details">
             <h2>Destination: Tokyo</h2>
             <p><strong>Flight Booked:</strong> Japan Airlines, Direct Flight</p>
             <p><strong>Dates:</strong> August 12, 2024 - August 22, 2024</p>
@@ -125,7 +117,7 @@ main {
             <p><strong>Description:</strong> Experience the vibrant culture of Japan with visits to temples, technology hubs, and traditional markets. Includes accommodation and guided tours.</p>
             <a href="{% url 'home' %}" class="book-button">Book Now</a>
         </section>
-        <section id="new-york" class="details">
+        <section id=4 class="details">
             <h2>Destination: New York</h2>
             <p><strong>Flight Booked:</strong> Delta Airlines, Direct Flight</p>
             <p><strong>Dates:</strong> September 15, 2024 - September 25, 2024</p>
@@ -133,7 +125,7 @@ main {
             <p><strong>Description:</strong> Explore iconic landmarks such as the Statue of Liberty, Central Park, and Times Square. Includes Broadway show tickets and a luxury hotel stay.</p>
             <a href="{% url 'home' %}" class="book-button">Book Now</a>
         </section>
-        <section id="cape-town" class="details">
+        <section id=5 class="details">
             <h2>Destination: Cape Town</h2>
             <p><strong>Flight Booked:</strong> South African Airways, Direct Flight</p>
             <p><strong>Dates:</strong> October 10, 2024 - October 20, 2024</p>
@@ -141,7 +133,7 @@ main {
             <p><strong>Description:</strong> Enjoy the breathtaking scenery, visit Table Mountain, and go on a safari. Includes guided tours and premium accommodations.</p>
             <a href="{% url 'home' %}" class="book-button">Book Now</a>
         </section>
-        <section id="sydney" class="details">
+        <section id=6 class="details">
             <h2>Destination: Sydney</h2>
             <p><strong>Flight Booked:</strong> Qantas Airlines, Direct Flight</p>
             <p><strong>Dates:</strong> November 5, 2024 - November 15, 2024</p>
@@ -154,17 +146,15 @@ main {
     </main>
     
     <script>
-        window.onload = function() {
-            // Get the package ID from the URL fragment (hash)
-            const packageId = window.location.hash.substring(1); // Removes the '#' symbol
-            
-            // Get all sections
-            const allSections = document.querySelectorAll('.details');
-            
-            // Hide all sections initially
-            allSections.forEach(section => section.style.display = 'none');
-            
-            // Show the corresponding section based on the package ID
+        window.onload = function () {
+            // Get the package ID from the URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const packageId = urlParams.get('id'); // Extract the `id` from ?id= in the URL
+    
+            // Hide all sections, show only the matching one
+            const sections = document.querySelectorAll('.details');
+            sections.forEach(section => section.style.display = 'none');
+    
             const selectedSection = document.getElementById(packageId);
             if (selectedSection) {
                 selectedSection.style.display = 'block';
