@@ -11,6 +11,7 @@ urlpatterns = [
     path('bookings/book_package/', views.book_vacation_package, name='book_vacation_package'),
     path('flights/', views.list_flights, name='list_flights'),
     path('book-flight/<str:flight_id>/', views.book_flight, name='book_flight'),
+    path('agents/', views.agents_page, name='agents_page'),
 ]
 
 if settings.DEBUG:

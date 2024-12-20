@@ -1,117 +1,149 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Agents</title>
-  {% load static %}
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="{% static 'navbar.css' %}">
-  <link rel="stylesheet" href="{% static 'agentspage.css' %}">
-</head>
-<body>
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agents</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'users/css/navbar.css' %}" />
+    <link rel="stylesheet" href="{% static 'users/css/agentspage.css' %}" />
+  </head>
+  <body>
     {% include 'users/navbar.html' %}
 
-  <!-- Section Title -->
-  <section class="mt-5">
-    <div class="container">
-      <h2 class="section-subtitle">
-        <span class="subtitle-line-1">Your perfect trip starts with the right agent</span>
-        <br>
-        <span class="subtitle-line-2">choose yours today and let the adventure begin!</span>
-      </h2>
-    </div>
-  </section>
+    <!-- Section Title -->
+    <section class="mt-5">
+      <div class="container">
+        <h2 class="section-subtitle">
+          <span class="subtitle-line-1"
+            >Your perfect trip starts with the right agent</span
+          >
+          <br />
+          <span class="subtitle-line-2"
+            >choose yours today and let the adventure begin!</span
+          >
+        </h2>
+      </div>
+    </section>
 
-  <!-- Card Section -->
-  <section class="container mt-4">
-    <div class="row g-4">
-      <!-- Card 1 -->
-      <div class="col-md-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title"></h5>
-            <p class="card-text">
-              <span class="property-name">Name:</span> Sarah El Khoury<br>
-              <span class="property-name">Phone:</span> +961 71 123 456<br>
-              <span class="property-name">Email:</span> <a href="mailto:sarah.khoury@travelagency.com" class="email-link">sarah.khoury@travelagency.com</a>
-            </p>
+    <!-- Card Section -->
+    <section class="container mt-4">
+      <div class="row g-4">
+        <!-- Card 1 -->
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"></h5>
+              <p class="card-text">
+                <span class="property-name">Name:</span> Sarah El Khoury<br />
+                <span class="property-name">Phone:</span> +961 71 123 456<br />
+                <span class="property-name">Email:</span>
+                <a
+                  href="mailto:sarah.khoury@travelagency.com"
+                  class="email-link"
+                  >sarah.khoury@travelagency.com</a
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"></h5>
+              <p class="card-text">
+                <span class="property-name">Name:</span> Omar Haddad<br />
+                <span class="property-name">Phone:</span> +961 76 987 654<br />
+                <span class="property-name">Email:</span>
+                <a href="mailto:omar.haddad@travelagency.com" class="email-link"
+                  >omar.haddad@travelagency.com</a
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"></h5>
+              <p class="card-text">
+                <span class="property-name">Name:</span> Maya Chidiac<br />
+                <span class="property-name">Phone:</span> +961 78 345 678<br />
+                <span class="property-name">Email:</span>
+                <a
+                  href="mailto:maya.chidiac@travelagency.com"
+                  class="email-link"
+                  >maya.chidiac@travelagency.com</a
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- Card 4 -->
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"></h5>
+              <p class="card-text">
+                <span class="property-name">Name:</span> Karim Abu Nasr<br />
+                <span class="property-name">Phone:</span> +961 70 246 810<br />
+                <span class="property-name">Email:</span>
+                <a href="mailto:karim.nasr@travelagency.com" class="email-link"
+                  >karim.nasr@travelagency.com</a
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- Card 5 -->
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"></h5>
+              <p class="card-text">
+                <span class="property-name">Name:</span> Leila Saadeh<br />
+                <span class="property-name">Phone:</span> +961 79 654 321<br />
+                <span class="property-name">Email:</span>
+                <a
+                  href="mailto:leila.saadeh@travelagency.com"
+                  class="email-link"
+                  >leila.saadeh@travelagency.com</a
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- Card 6 -->
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"></h5>
+              <p class="card-text">
+                <span class="property-name">Name:</span> Rami Fakhoury<br />
+                <span class="property-name">Phone:</span> +961 71 852 963<br />
+                <span class="property-name">Email:</span>
+                <a
+                  href="mailto:rami.fakhoury@travelagency.com"
+                  class="email-link"
+                  >rami.fakhoury@travelagency.com</a
+                >
+              </p>
+            </div>
           </div>
         </div>
       </div>
-      <!-- Card 2 -->
-      <div class="col-md-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title"></h5>
-            <p class="card-text">
-              <span class="property-name">Name:</span> Omar Haddad<br>
-              <span class="property-name">Phone:</span> +961 76 987 654<br>
-              <span class="property-name">Email:</span> <a href="mailto:omar.haddad@travelagency.com" class="email-link">omar.haddad@travelagency.com</a>
-            </p>
-          </div>
-        </div>
-      </div>
-      <!-- Card 3 -->
-      <div class="col-md-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title"></h5>
-            <p class="card-text">
-              <span class="property-name">Name:</span> Maya Chidiac<br>
-              <span class="property-name">Phone:</span> +961 78 345 678<br>
-              <span class="property-name">Email:</span> <a href="mailto:maya.chidiac@travelagency.com" class="email-link">maya.chidiac@travelagency.com</a>
-            </p>
-          </div>
-        </div>
-      </div>
-      <!-- Card 4 -->
-      <div class="col-md-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title"></h5>
-            <p class="card-text">
-              <span class="property-name">Name:</span> Karim Abu Nasr<br>
-              <span class="property-name">Phone:</span> +961 70 246 810<br>
-              <span class="property-name">Email:</span> <a href="mailto:karim.nasr@travelagency.com" class="email-link">karim.nasr@travelagency.com</a>
-            </p>
-          </div>
-        </div>
-      </div>
-      <!-- Card 5 -->
-      <div class="col-md-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title"></h5>
-            <p class="card-text">
-              <span class="property-name">Name:</span> Leila Saadeh<br>
-              <span class="property-name">Phone:</span> +961 79 654 321<br>
-              <span class="property-name">Email:</span> <a href="mailto:leila.saadeh@travelagency.com" class="email-link">leila.saadeh@travelagency.com</a>
-            </p>
-          </div>
-        </div>
-      </div>
-      <!-- Card 6 -->
-      <div class="col-md-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title"></h5>
-            <p class="card-text">
-              <span class="property-name">Name:</span> Rami Fakhoury<br>
-              <span class="property-name">Phone:</span> +961 71 852 963<br>
-              <span class="property-name">Email:</span> <a href="mailto:rami.fakhoury@travelagency.com" class="email-link">rami.fakhoury@travelagency.com</a>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <div class="footer-space"></div>
+    <div class="footer-space"></div>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>

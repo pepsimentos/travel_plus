@@ -175,3 +175,6 @@ def book_hotel(request, hotel_id):
     messages.success(request, f"Hotel room successfully booked in {hotel.hotel_city}!")
 
     return redirect('success_page')
+
+def agents_page(request):
+    return render(request, 'users/agentspage.html')

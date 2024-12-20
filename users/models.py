@@ -107,6 +107,7 @@ class Package(models.Model):
     pkg_end_date = models.DateField(blank=True, null=True)
     package_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     pkg_destination = models.CharField(max_length=100, blank=True, null=True)
+    agent = models.ForeignKey('Agent', on_delete=models.DO_NOTHING, blank=True, null=True)  # Add this line
 
     class Meta:
         db_table = 'package'
