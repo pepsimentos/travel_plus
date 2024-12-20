@@ -5,8 +5,6 @@ env/
 travelo/Lib/
 travelo/Scripts/
 
-# Ignore database files
-*.sqlite3
 
 # Ignore Django migrations files
 **/migrations/*.py
