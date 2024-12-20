@@ -126,12 +126,30 @@ def book_flight(request, flight_id):
 
 # View to list all available flights
 def list_flights(request):
-    query = request.GET.get('destination')  # Get the search query from the form
-    if query:
-        flights = Flight.objects.filter(end_city__icontains=query)  # Case-insensitive filter
-    else:
-        flights = Flight.objects.all()  # Show all flights if no query
-    return render(request, 'users/flight_list.html', {'flights': flights, 'query': query})
+    destination = request.GET.get('destination')  # User-selected destination city
+    start_date = request.GET.get('start_date')    # Outbound flight date
+    one_way = request.GET.get('one_way')          # Checkbox for "One Way"
+
+    # Ensure destination and start date are provided
+    if not destination or not start_date:
+        return render(request, 'users/flight_list.html', {
+            'error': 'Please provide a destination city and outbound date.'
+        })
+
+    # Base query: flights from Beirut to the selected city
+    flights = Flight.objects.filter(
+        start_city__iexact="Beirut",
+        end_city__icontains=destination,
+        flight_date=start_date
+    )
+
+    # Pass the filtered flights to the template
+    return render(request, 'users/flight_list.html', {
+        'flights': flights,
+        'query': destination,
+        'start_date': start_date,
+        'one_way': one_way
+    })
 
 
 @login_required
