@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Package Details</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'pdetails.css' %}">
+</head>
+<body>
+
+<header>
+    <h1>Travel Packages</h1>
+</header>
+
+<main>
+    {% for package in packages %}
+    <section id="{{ package.slug }}" class="details">
+        <h2>Destination: {{ package.destination }}</h2>
+        <p><strong>Flight Booked:</strong> {{ package.flight }}</p>
+        <p><strong>Dates:</strong> {{ package.dates }}</p>
+        <p><strong>Price:</strong> ${{ package.price }}</p>
+        <p><strong>Description:</strong> {{ package.description }}</p>
+        <a href="{% url 'book_package' package.id %}" class="book-button">Book Now</a>
+    </section>
+    {% endfor %}
+    
+    <a href="{% url 'packages_list' %}" class="back-button">Back to Packages</a>
+</main>
+
+<script>
+    window.onload = function() {
+        // Get the package ID from the URL fragment (hash)
+        const packageId = window.location.hash.substring(1); // Removes the '#' symbol
+        
+        // Get all sections
+        const allSections = document.querySelectorAll('.details');
+        
+        // Hide all sections initially
+        allSections.forEach(section => section.style.display = 'none');
+        
+        // Show the corresponding section based on the package ID
+        const selectedSection = document.getElementById(packageId);
+        if (selectedSection) {
+            selectedSection.style.display = 'block';
+        }
+    };
+</script>
+
+</body>
+</html>
