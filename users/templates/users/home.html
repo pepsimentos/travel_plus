@@ -23,24 +23,42 @@
       <form class="search-form" method="GET" action="{% url 'list_flights' %}">
         <!-- Search Destination -->
         <input
-          type="text"
+          list="cities"
           name="destination"
           placeholder="Where are you going?"
           required
         />
+        <datalist id="cities"></datalist>
 
         <!-- Start Date -->
         <input type="date" name="start_date" placeholder="Start Date" />
 
         <!-- End Date -->
-        <input type="date" name="end_date" placeholder="End Date" />
+        <input
+          type="date"
+          name="end_date"
+          id="end_date"
+          placeholder="End Date"
+        />
+
+        <!-- Checkbox for One Way -->
+        <div style="display: inline-flex; align-items: center; gap: 0.05rem">
+          <label style="display: flex; align-items: center; cursor: pointer">
+            <input
+              type="checkbox"
+              id="one_way_checkbox"
+              style="accent-color: #007bff; margin-right: 0.5rem"
+            />
+            <span style="font-size: 1rem; font-weight: 500">One way</span>
+          </label>
+        </div>
 
         <!-- Dropdown for Passengers -->
         <div class="dropdown">
           <input type="checkbox" id="dropdown-toggle" class="dropdown-toggle" />
-          <label for="dropdown-toggle" class="dropdown-toggler"
-            >2 adults · 0 children · 1 room</label
-          >
+          <label for="dropdown-toggle" class="dropdown-toggler">
+            2 adults · 0 children · 1 room
+          </label>
           <div class="dropdown-menu">
             <div class="dropdown-item">
               <label>Adults</label>
@@ -170,15 +188,14 @@
               class="destination-card-image"
             />
             <div class="destination-info">
-              <h3>Japan <span>🇨🇳</span></h3>
+              <h3>Japan <span>🇧🇯</span></h3>
               <p>Average price US$400.07</p>
             </div>
           </div>
         </div>
       </div>
     </section>
-
-    <!-- Script for Dropdown Functionality -->
-    <script src="{% static 'hoteldescdrop.js' %}"></script>
+    <!-- Script for Loading Datalist Options -->
+    <script src="{% static 'users/js/search.js' %}"></script>
   </body>
 </html>
