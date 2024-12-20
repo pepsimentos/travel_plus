@@ -3,8 +3,10 @@ from django.http import JsonResponse, HttpResponseForbidden
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.decorators import login_required
-from .models import Agent, Package, Books, Flight, FlightBooking, Hotel, HotelBooking
+from .models import Agent, Package, Books, Flight, FlightBooking, Hotel, HotelBooking, PackageFlight, PackageHotel
 from django.db import transaction
+from django.contrib.auth.models import User
+
 
 # Use the custom user model
 User = get_user_model()
@@ -68,6 +70,94 @@ def registerPage(request):
 
 def success_page(request):
     return render(request, "users/success.html")
+
+def package_details(request, package_id):
+    # Fetch the package details
+    package = get_object_or_404(Package, pk=package_id)
+    flight = PackageFlight.objects.filter(package=package).first()
+    hotel = PackageHotel.objects.filter(package=package).first()
+    agents = Agent.objects.all()  # All agents for users to pick from
+    users = User.objects.all()  # All users for agents to pick from
+
+    # Determine user role: agent or user
+    is_agent = hasattr(request.user, 'agent')  # Checks if logged-in user is an agent
+
+    context = {
+        'package': package,
+        'flight': flight.flight if flight else None,
+        'hotel': hotel.hotel if hotel else None,
+        'agents': agents,
+        'users': users,
+        'is_agent': is_agent,
+    }
+
+    return render(request, 'package_details.html', context)
+
+def select_agent(request):
+    if request.method == 'POST':
+        agent_id = request.POST.get('agent_id')
+        package_id = request.POST.get('package_id')
+        agent = get_object_or_404(Agent, pk=agent_id)
+        package = get_object_or_404(Package, pk=package_id)
+
+        # Create a booking record
+        Books.objects.create(user=request.user, agent=agent, package=package)
+
+        # Send success response
+        return redirect('success')  # Redirect to a success page or confirmation
+
+def book_vacation_package(request):
+    if request.method == 'POST':
+        user_id = request.POST.get('user_id')
+        package_id = request.POST.get('package_id')
+        user = get_object_or_404(User, pk=user_id)
+        package = get_object_or_404(Package, pk=package_id)
+
+        # Ensure the agent is logged in
+        if not hasattr(request.user, 'agent'):
+            return redirect('home')  # Redirect non-agents to the home page
+
+        # Reduce flight and hotel capacities
+        flight = PackageFlight.objects.filter(package=package).first()
+        hotel = PackageHotel.objects.filter(package=package).first()
+
+        if flight and flight.flight.available_seats > 0:
+            flight.flight.available_seats -= 1
+            flight.flight.save()
+
+        if hotel and hotel.hotel.available_rooms > 0:
+            hotel.hotel.available_rooms -= 1
+            hotel.hotel.save()
+
+        # Create a booking record
+        Books.objects.create(user=user, agent=request.user.agent, package=package)
+
+        # Send success response
+        return redirect('success')  # Redirect to a success page
+
+def custom_login(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        
+        # Authenticate user
+        user = authenticate(request, username=username, password=password)
+        
+        if user is not None:
+            login(request, user)  # Log in the user
+            
+            # Check if the user is an agent
+            is_agent = Agent.objects.filter(user=user).exists()
+            if is_agent:
+                request.session['role'] = 'agent'
+            else:
+                request.session['role'] = 'user'
+            
+            return redirect('packages')  # Redirect to packages page
+        else:
+            messages.error(request, "Invalid username or password")
+    
+    return render(request, 'users/login.html')
 
 @login_required
 def home(request):
