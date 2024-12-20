@@ -1,0 +1,77 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotels</title>
+    <style> 
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+        color: #333;
+        padding-top: 60px; /* Adjust this value to prevent content from hiding behind the navbar */
+    }
+    
+    header {
+        background-color: #0078d7;
+        color: white;
+        padding: 20px 0;
+        text-align: center;
+        font-size: 2rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .hotel-list {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 0 20px;
+    }
+    
+    .hotel-card {
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .hotel-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    }
+    
+    .hotel-card h2 {
+        font-size: 1.5rem;
+        color: #0078d7;
+        margin-bottom: 10px;
+    }
+    
+    .hotel-card p {
+        margin: 5px 0;
+        font-size: 1rem;
+        color: #555;
+    }
+</style>
+    
+</head>
+<body>
+    {% include 'users/navbar.html' %}
+    <header>
+        <h1>Hotels</h1>
+    </header>
+    <main class="hotel-list">
+        {% for hotel in hotels %}
+        <div class="hotel-card">
+            <h2>{{ hotel.hotel_city }}</h2>
+            <p>Location: {{ hotel.hotel_city }}</p>
+            <p>Price: ${{ hotel.room_type }}/night</p>
+            <p>Available Rooms: {{ hotel.available_rooms }}</p>
+        </div>
+        {% endfor %}
+    </main>
+</body>
+</html>

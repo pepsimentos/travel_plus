@@ -15,6 +15,7 @@ urlpatterns = [
     path('flights/', views.list_flights, name='list_flights'),  # List flights
     path('book-flight/<str:flight_id>/', views.book_flight, name='book_flight'),  # Book flight
     path('book-hotel/<str:hotel_id>/', views.book_hotel, name='book_hotel'),  # Book hotel
+    path('hotels/', views.hotels_page, name='hotels_page'),  # Add this line
     # path('contact-us/', views.contact_us, name='contact_us'),
 ]
 

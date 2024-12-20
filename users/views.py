@@ -206,3 +206,7 @@ def packages_list(request):
     }
     return render(request, 'users/packages.html', context)  # Specify 'users/packages.html'
 
+def hotels_page(request):
+    hotels = Hotel.objects.all()[:6]  # Fetch up to 6 hotels from the database
+    return render(request, 'users/hotels.html', {'hotels': hotels})
+

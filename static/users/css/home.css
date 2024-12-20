@@ -28,36 +28,45 @@ body {
   margin-bottom: -80px;
 }
 
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 /* Search Bar */
 .search-bar {
   background-color: #f1f1f1;
   padding: 20px;
-  text-align: center;
-  display: flex; /* Add flexbox for better alignment */
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Align items vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 /* Form container */
 .search-form {
   display: flex;
-  gap: 15px; /* Increase gap for consistent spacing */
-  justify-content: flex-start; /* Align all elements from the start */
-  align-items: center; /* Align vertically */
-  flex-wrap: nowrap; /* Prevent wrapping */
-  max-width: 1200px; /* Adjust max width for consistent layout */
-  margin: 0 auto;
+  gap: 15px; /* Consistent spacing between elements */
+  align-items: center; /* Vertically align items */
+  justify-content: center; /* Center elements horizontally */
+  flex-wrap: wrap; /* Wrap items on smaller screens */
+  width: 100%;
+  max-width: 1200px;
 }
 
 /* Input and select fields */
 .search-form input,
 .search-form select {
+  height: 42px; /* Ensure consistent height */
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  width: 180px; /* Ensure consistent input widths */
+  width: 200px; /* Fixed width for uniformity */
   box-sizing: border-box;
+  text-align: left; /* Align text properly */
 }
 
 .search-form input::placeholder {
@@ -65,34 +74,39 @@ body {
 }
 
 /* Checkbox and label */
-.search-form .checkbox-container {
+.checkbox-container {
   display: flex;
-  align-items: center; /* Align checkbox and label */
+  align-items: center; /* Ensure vertical alignment */
   gap: 5px; /* Space between checkbox and label */
-  font-size: 14px; /* Smaller font size for the label */
+  font-size: 14px;
+  height: 42px; /* Match input and button height */
 }
 
-.search-form .checkbox-container label {
-  cursor: pointer;
-  display: flex;
-  align-items: center;
+.checkbox-container label {
+  margin: 0;
 }
 
 /* Dropdown container */
 .dropdown {
   position: relative;
-  display: inline-block;
+  display: flex;
+  align-items: center; /* Vertical alignment */
 }
 
 .dropdown-toggler {
-  cursor: pointer;
+  display: flex;
+  align-items: center; /* Centers content vertically */
   padding: 10px;
   font-size: 16px;
+  width: 200px; /* Match input width */
+  height: 42px; /* Match input height */
   background-color: white;
   border: 1px solid #ccc;
   border-radius: 4px;
+  cursor: pointer;
 }
 
+/* Dropdown menu styling */
 .dropdown-menu {
   display: none;
   position: absolute;
@@ -104,62 +118,46 @@ body {
   border: 1px solid #ccc;
   border-radius: 4px;
   z-index: 10;
-  min-width: 250px;
+  width: max-content;
 }
 
 .dropdown-toggle:checked + .dropdown-toggler + .dropdown-menu {
   display: block;
 }
 
-.dropdown-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-.dropdown-item button {
-  background-color: #0071c2;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  width: 25px;
-  height: 25px;
-  cursor: pointer;
-}
-
-.dropdown-item button:hover {
-  background-color: #005bb5;
-}
-
-.btn-done {
-  margin-top: 10px;
-  background-color: #0071c2;
-  color: white;
-  padding: 8px 12px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.btn-done:hover {
-  background-color: #005bb5;
-}
-
-/* Button */
+/* Submit button */
 .search-form button {
   padding: 10px 20px;
+  font-size: 16px;
   background-color: #0071c2;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 16px;
+  height: 42px; /* Match input and dropdown height */
 }
 
 .search-form button:hover {
   background-color: #005bb5;
 }
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+  .search-form {
+    flex-direction: column;
+    gap: 10px; /* Reduce gap for smaller screens */
+  }
+
+  .dropdown-toggler {
+    width: 100%;
+  }
+
+  .search-form input,
+  .search-form button {
+    width: 100%;
+  }
+}
+
 
 
 /* Trending Destinations Section */
