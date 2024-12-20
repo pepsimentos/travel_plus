@@ -31,7 +31,12 @@
         <datalist id="cities"></datalist>
 
         <!-- Start Date -->
-        <input type="date" name="start_date" placeholder="Start Date" />
+        <input
+          type="date"
+          name="start_date"
+          placeholder="Start Date"
+          required
+        />
 
         <!-- End Date -->
         <input
@@ -197,5 +202,6 @@
     </section>
     <!-- Script for Loading Datalist Options -->
     <script src="{% static 'users/js/search.js' %}"></script>
+    <script src="{% static 'users/js/hoteldescdrop.js' %}"></script>
   </body>
 </html>
