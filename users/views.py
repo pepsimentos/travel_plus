@@ -3,7 +3,7 @@ from django.http import JsonResponse, HttpResponseForbidden
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.decorators import login_required
-from .models import Agent, Package, Books
+from .models import Agent, Package, Books, Flight, FlightBooking
 
 # Use the custom user model
 User = get_user_model()
@@ -123,3 +123,32 @@ def book_flight(request):
     
     flights = Flight.objects.all()
     return render(request, "users/book_flight.html", {"flights": flights})
+
+# View to list all available flights
+def list_flights(request):
+    query = request.GET.get('destination')  # Get the search query from the form
+    if query:
+        flights = Flight.objects.filter(end_city__icontains=query)  # Case-insensitive filter
+    else:
+        flights = Flight.objects.all()  # Show all flights if no query
+    return render(request, 'users/flight_list.html', {'flights': flights, 'query': query})
+
+# View to handle flight booking
+@login_required  # Ensure user is logged in to book a flight
+def book_flight(request, flight_id):
+    flight = get_object_or_404(Flight, flight_id=flight_id)  # Retrieve the selected flight
+    
+    if request.method == 'POST':
+        # Save booking if user confirms
+        FlightBooking.objects.get_or_create(user=request.user, flight=flight)
+        messages.success(request, f"You have successfully booked {flight.flight_number}!")
+        return redirect('booking_confirmation')  # Redirect to confirmation page
+
+    return render(request, 'users/book_flight.html', {'flight': flight})
+
+def autocomplete_destinations(request):
+    query = request.GET.get('q', '')
+    if query:
+        destinations = Flight.objects.filter(end_city__icontains=query).values_list('end_city', flat=True).distinct()
+        return JsonResponse(list(destinations), safe=False)
+    return JsonResponse([], safe=False)

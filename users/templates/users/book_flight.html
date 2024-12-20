@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Flight</title>
+    <!-- Optional: Link to CSS file -->
+    <link rel="stylesheet" href="{% static 'users/css/styles.css' %}" />
+  </head>
+  <body>
+    <header>
+      <h1>Flight Booking</h1>
+    </header>
+
+    <main>
+      <!-- Flight Details -->
+      <section>
+        <h2>Flight Details</h2>
+        <p><strong>Flight Number:</strong> {{ flight.flight_number }}</p>
+        <p><strong>From:</strong> {{ flight.start_city }}</p>
+        <p><strong>To:</strong> {{ flight.end_city }}</p>
+        <p><strong>Takeoff Time:</strong> {{ flight.takeoff_time }}</p>
+        <p><strong>Landing Time:</strong> {{ flight.landing_time }}</p>
+        <p><strong>Date:</strong> {{ flight.flight_date }}</p>
+        <p><strong>Class:</strong> {{ flight.flight_class }}</p>
+      </section>
+
+      <!-- Booking Form -->
+      <section>
+        <h2>Confirm Your Booking</h2>
+        <form method="POST">
+          {% csrf_token %}
+          <p>Are you sure you want to book this flight?</p>
+          <button type="submit">Book Flight</button>
+          <a href="{% url 'list_flights' %}">Cancel</a>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2024 Travelo. All rights reserved.</p>
+    </footer>
+  </body>
+</html>
