@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
-from django.db.models import F
+from django.db.models import F, Q
 from .models import Agent, Package, Books, Flight, FlightBooking, Hotel, HotelBooking, PackageFlight, PackageHotel
 from django.contrib.auth.models import User
 
@@ -16,21 +16,35 @@ def homePage(request):
     return render(request, 'users/home.html')
 
 def loginPage(request):
+    # If user is already authenticated, redirect to home
+    if request.user.is_authenticated:
+        return redirect('home')
+        
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
 
-        if user:
+        if user is not None:
             login(request, user)
             request.session['role'] = 'agent' if is_agent(user) else 'user'
+            
+            # Get next parameter from URL or default to home
+            next_url = request.GET.get('next')
+            if next_url:
+                return redirect(next_url)
             return redirect('home')
         else:
             messages.error(request, 'Invalid username or password.')
+            
     return render(request, 'users/login.html')
 
+@login_required
 def logoutUser(request):
-    logout(request)
+    if request.method == 'POST':
+        logout(request)
+        messages.success(request, 'You have been successfully logged out.')
+        return redirect('home')
     return redirect('home')
 
 def contact_us(request):
@@ -41,72 +55,106 @@ def home(request):
     return render(request, 'users/home.html')
 
 # ================== PACKAGE VIEWS ==================
-#@login_required
 def package_details(request, package_id):
-    # Fetch the package details
-    package = get_object_or_404(Package, pk=package_id)
-    flight = PackageFlight.objects.filter(package=package).first()
-    hotel = PackageHotel.objects.filter(package=package).first()
+    try:
+        # Fetch the package details with related data
+        package = get_object_or_404(Package, pk=package_id)
+        package_flight = PackageFlight.objects.select_related('flight').filter(package=package).first()
+        package_hotel = PackageHotel.objects.select_related('hotel').filter(package=package).first()
 
-    # Determine user role: agent or user
-    agents = Agent.objects.all() if not is_agent(request.user) else None
-    users = User.objects.all() if is_agent(request.user) else None
+        # Get availability information
+        flight_seats = package_flight.flight.available_seats if package_flight else 0
+        hotel_rooms = package_hotel.hotel.available_rooms if package_hotel else 0
 
-    context = {
-        'package': {
-            'id': package.package_id,
-            'slug': package.pkg_destination.lower().replace(' ', '-'),
-            'destination': package.pkg_destination,
-            'dates': f"{package.pkg_start_date} to {package.pkg_end_date}",
-            'price': package.package_price,
-            'description': 'Enjoy a premium vacation experience!',
-            'flight': flight.flight.flight_number if flight else "No flight available",
-            'hotel': hotel.hotel.hotel_city if hotel else "No hotel available",
-        },
-        'agents': agents,  # List of agents for users to pick
-        'users': users,    # List of users for agents to pick
-        'is_agent': is_agent(request.user),  # Role check for conditional rendering
-    }
-    return render(request, 'users/package_details.html', context)
+        # Get users excluding already booked ones
+        booked_users = Books.objects.filter(package=package).values_list('user_id', flat=True)
+        available_users = User.objects.exclude(Q(id__in=booked_users) | Q(is_staff=True) | Q(is_superuser=True))
+
+        context = {
+            'package': {
+                'id': package.package_id,
+                'destination': package.pkg_destination,
+                'dates': f"{package.pkg_start_date} to {package.pkg_end_date}",
+                'price': package.package_price,
+                'description': 'Enjoy a premium vacation experience!',
+                'flight': f"{package_flight.flight.flight_number} ({flight_seats} seats available)" if package_flight else "No flight available",
+                'hotel': f"{package_hotel.hotel.hotel_city} ({hotel_rooms} rooms available)" if package_hotel else "No hotel available",
+            },
+            'users': available_users if is_agent(request.user) else None,
+            'is_agent': is_agent(request.user),
+            'has_availability': flight_seats > 0 and hotel_rooms > 0,
+        }
+        return render(request, 'users/package_details.html', context)
+    except Exception as e:
+        messages.error(request, f"Error loading package details: {str(e)}")
+        return redirect('packages_list')
 
 @login_required
 @transaction.atomic
 def book_package(request):
-    if request.method == 'POST':
-        # Check if user is agent
+    if request.method != 'POST':
+        return redirect('packages_list')
+
+    try:
+        # Verify agent status
         if not is_agent(request.user):
-            messages.error(request, "You do not have permission to book this package.")
-            return redirect('home')
+            messages.error(request, "Only agents can book packages.")
+            return redirect('packages_list')
 
-        user_id = request.POST.get('user_id')
+        # Get form data
         package_id = request.POST.get('package_id')
+        user_id = request.POST.get('user_id')
 
-        user = get_object_or_404(User, id=user_id)
-        package = get_object_or_404(Package, package_id=package_id)
-
-        # Reduce flight and hotel capacities atomically
-        flight = PackageFlight.objects.select_related('flight').filter(package=package).first()
-        hotel = PackageHotel.objects.select_related('hotel').filter(package=package).first()
-
-        if flight and flight.flight.available_seats > 0:
-            flight.flight.available_seats = F('available_seats') - 1
-            flight.flight.save()
-        else:
-            messages.error(request, "Flight has no available seats.")
+        if not package_id or not user_id:
+            messages.error(request, "Missing required booking information.")
             return redirect('package_details', package_id=package_id)
 
-        if hotel and hotel.hotel.available_rooms > 0:
-            hotel.hotel.available_rooms = F('available_rooms') - 1
-            hotel.hotel.save()
-        else:
-            messages.error(request, "Hotel has no available rooms.")
+        # Get package and user
+        package = get_object_or_404(Package, pk=package_id)
+        selected_user = get_object_or_404(User, id=user_id)
+
+        # Check if user already has this package
+        if Books.objects.filter(user=selected_user, package=package).exists():
+            messages.error(request, f"User {selected_user.username} has already booked this package.")
             return redirect('package_details', package_id=package_id)
 
-        # Create the booking
-        Books.objects.create(user=user, agent=request.user.agent, package=package)
-        messages.success(request, "Package booked successfully!")
+        # Get associated flight and hotel with select_related for efficiency
+        package_flight = PackageFlight.objects.select_related('flight').filter(package=package).first()
+        package_hotel = PackageHotel.objects.select_related('hotel').filter(package=package).first()
+
+        if not package_flight or not package_hotel:
+            messages.error(request, "Package is missing flight or hotel information.")
+            return redirect('package_details', package_id=package_id)
+
+        # Verify availability
+        if package_flight.flight.available_seats <= 0:
+            messages.error(request, "No flight seats available for this package.")
+            return redirect('package_details', package_id=package_id)
+
+        if package_hotel.hotel.available_rooms <= 0:
+            messages.error(request, "No hotel rooms available for this package.")
+            return redirect('package_details', package_id=package_id)
+
+        # Update capacities
+        package_flight.flight.available_seats = F('available_seats') - 1
+        package_flight.flight.save()
+
+        package_hotel.hotel.available_rooms = F('available_rooms') - 1
+        package_hotel.hotel.save()
+
+        # Create booking
+        Books.objects.create(
+            user=selected_user,
+            agent=request.user.agent,
+            package=package
+        )
+
+        messages.success(request, f"Package successfully booked for {selected_user.username}!")
         return redirect('success_page')
-    return redirect('home')
+
+    except Exception as e:
+        messages.error(request, f"An error occurred while booking: {str(e)}")
+        return redirect('package_details', package_id=package_id)
 
 # ================== FLIGHT VIEWS ==================
 @login_required
@@ -200,13 +248,30 @@ def registerPage(request):
     return render(request, 'users/register.html')
 
 def packages_list(request):
-    packages = Package.objects.all()
-    context = {
-        'packages': packages
-    }
-    return render(request, 'users/packages.html', context)  # Specify 'users/packages.html'
+    try:
+        packages = Package.objects.select_related('agent').all()
+        
+        # Get availability information for each package
+        package_info = []
+        for package in packages:
+            flight = PackageFlight.objects.select_related('flight').filter(package=package).first()
+            hotel = PackageHotel.objects.select_related('hotel').filter(package=package).first()
+            
+            package_info.append({
+                'package': package,
+                'flight_seats': flight.flight.available_seats if flight else 0,
+                'hotel_rooms': hotel.hotel.available_rooms if hotel else 0,
+            })
+
+        context = {
+            'package_info': package_info,
+            'is_agent': is_agent(request.user)
+        }
+        return render(request, 'users/packages.html', context)
+    except Exception as e:
+        messages.error(request, f"Error loading packages: {str(e)}")
+        return redirect('home')
 
 def hotels_page(request):
     hotels = Hotel.objects.all()[:6]  # Fetch up to 6 hotels from the database
     return render(request, 'users/hotels.html', {'hotels': hotels})
-

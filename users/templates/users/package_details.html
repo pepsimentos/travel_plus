@@ -32,7 +32,7 @@
         }
 
         .details {
-            display: none; /* Hide all sections initially */
+            display: none;
             padding: 20px;
             line-height: 1.6;
             margin-bottom: 20px;
@@ -42,7 +42,7 @@
         }
 
         .details.active {
-            display: block; /* Show the active section */
+            display: block;
         }
 
         .details h2 {
@@ -83,63 +83,103 @@
         .book-button:hover {
             background-color: #2e768b;
         }
+
+        /* New styles for booking form */
+        .booking-form {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .message {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+
+        .message.error {
+            background-color: #ffe6e6;
+            color: #cc0000;
+            border: 1px solid #ffcccc;
+        }
+
+        .message.success {
+            background-color: #e6ffe6;
+            color: #006600;
+            border: 1px solid #ccffcc;
+        }
     </style>
     {% load static %}
 </head>
 <body>
-
     <header>
         <h1>Travel Packages</h1>
     </header>
     
     <main>
-        <section id=1 class="details">
-            <h2>Destination: Paris</h2>
-            <p><strong>Flight Booked:</strong> Air France, Direct Flight</p>
-            <p><strong>Dates:</strong> June 10, 2024 - June 20, 2024</p>
-            <p><strong>Price:</strong> $2,500</p>
-            <p><strong>Description:</strong> Explore the city of love with guided tours to the Eiffel Tower, Louvre Museum, and Seine River cruises. Accommodation in a 4-star hotel with complimentary breakfast.</p>
-            <a href="{% url 'home' %}" class="book-button">Book Now</a>
-        </section>
-        <section id=2 class="details">
-            <h2>Destination: Bali</h2>
-            <p><strong>Flight Booked:</strong> Garuda Indonesia, Direct Flight</p>
-            <p><strong>Dates:</strong> July 5, 2024 - July 15, 2024</p>
-            <p><strong>Price:</strong> $3,000</p>
-            <p><strong>Description:</strong> Relax on beautiful beaches, enjoy luxury resorts, and explore cultural landmarks. Includes spa treatments and daily excursions.</p>
-            <a href="{% url 'home' %}" class="book-button">Book Now</a>
-        </section>
-        <section id=3 class="details">
-            <h2>Destination: Tokyo</h2>
-            <p><strong>Flight Booked:</strong> Japan Airlines, Direct Flight</p>
-            <p><strong>Dates:</strong> August 12, 2024 - August 22, 2024</p>
-            <p><strong>Price:</strong> $3,500</p>
-            <p><strong>Description:</strong> Experience the vibrant culture of Japan with visits to temples, technology hubs, and traditional markets. Includes accommodation and guided tours.</p>
-            <a href="{% url 'home' %}" class="book-button">Book Now</a>
-        </section>
-        <section id=4 class="details">
-            <h2>Destination: New York</h2>
-            <p><strong>Flight Booked:</strong> Delta Airlines, Direct Flight</p>
-            <p><strong>Dates:</strong> September 15, 2024 - September 25, 2024</p>
-            <p><strong>Price:</strong> $2,800</p>
-            <p><strong>Description:</strong> Explore iconic landmarks such as the Statue of Liberty, Central Park, and Times Square. Includes Broadway show tickets and a luxury hotel stay.</p>
-            <a href="{% url 'home' %}" class="book-button">Book Now</a>
-        </section>
-        <section id=5 class="details">
-            <h2>Destination: Cape Town</h2>
-            <p><strong>Flight Booked:</strong> South African Airways, Direct Flight</p>
-            <p><strong>Dates:</strong> October 10, 2024 - October 20, 2024</p>
-            <p><strong>Price:</strong> $2,200</p>
-            <p><strong>Description:</strong> Enjoy the breathtaking scenery, visit Table Mountain, and go on a safari. Includes guided tours and premium accommodations.</p>
-            <a href="{% url 'home' %}" class="book-button">Book Now</a>
-        </section>
-        <section id=6 class="details">
-            <h2>Destination: Sydney</h2>
-            <p><strong>Flight Booked:</strong> Qantas Airlines, Direct Flight</p>
-            <p><strong>Dates:</strong> November 5, 2024 - November 15, 2024</p>
-            <p><strong>Price:</strong> $3,200</p>
-            <p><strong>Description:</strong> Discover the charm of Sydney with visits to the Sydney Opera House, Bondi Beach, and wildlife parks. Includes 5-star accommodation and daily breakfasts.</p>
-            <a href="{% url 'home' %}" class="book-button">Book Now</a>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="message {{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <section id="{{ package.id }}" class="details active">
+            <h2>Destination: {{ package.destination }}</h2>
+            <p><strong>Flight Booked:</strong> {{ package.flight }}</p>
+            <p><strong>Dates:</strong> {{ package.dates }}</p>
+            <p><strong>Price:</strong> ${{ package.price }}</p>
+            <p><strong>Description:</strong> {{ package.description }}</p>
+
+            {% if user.is_authenticated %}
+                {% if is_agent %}
+                    <div class="booking-form">
+                        <h3>Book Package for User</h3>
+                        <form action="{% url 'book_package' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="package_id" value="{{ package.id }}">
+                            
+                            <div class="form-group">
+                                <label for="user_select">Select User:</label>
+                                <select name="user_id" id="user_select" required>
+                                    <option value="">-- Select a user --</option>
+                                    {% for user_item in users %}
+                                        <option value="{{ user_item.id }}">
+                                            {{ user_item.username }} ({{ user_item.email }})
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <button type="submit" class="book-button">Book Package</button>
+                        </form>
+                    </div>
+                {% else %}
+                    <p>Only agents can book packages. Please contact an agent to book this package.</p>
+                {% endif %}
+            {% else %}
+                <p>Please <a href="{% url 'login' %}">login</a> to book this package.</p>
+            {% endif %}
         </section>
         
         <a href="{% url 'packages_list' %}" class="back-button">Back to Packages</a>
@@ -147,20 +187,18 @@
     
     <script>
         window.onload = function () {
-            // Get the package ID from the URL
-            const urlParams = new URLSearchParams(window.location.search);
-            const packageId = urlParams.get('id'); // Extract the `id` from ?id= in the URL
-    
-            // Hide all sections, show only the matching one
-            const sections = document.querySelectorAll('.details');
-            sections.forEach(section => section.style.display = 'none');
-    
-            const selectedSection = document.getElementById(packageId);
-            if (selectedSection) {
-                selectedSection.style.display = 'block';
-            }
+            // Display messages for 5 seconds then fade out
+            setTimeout(function() {
+                const messages = document.querySelectorAll('.message');
+                messages.forEach(function(message) {
+                    message.style.transition = 'opacity 0.5s';
+                    message.style.opacity = '0';
+                    setTimeout(function() {
+                        message.style.display = 'none';
+                    }, 500);
+                });
+            }, 5000);
         };
     </script>
-    
-    </body>
-    </html>
+</body>
+</html>
