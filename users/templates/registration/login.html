@@ -6,6 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign In</title>
     <link rel="stylesheet" href="{% static 'users/css/login.css' %}" />
+    <style>
+      .alert {
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 4px;
+        text-align: center;
+        width: 100%;
+      }
+
+      .alert-error {
+        background-color: #ffebee;
+        color: #c62828;
+        border: 1px solid #ffcdd2;
+      }
+
+      .alert-success {
+        background-color: #e8f5e9;
+        color: #2e7d32;
+        border: 1px solid #c8e6c9;
+      }
+
+      /* Additional styling to ensure alerts fit nicely in the design */
+      .login-card {
+        position: relative;
+      }
+
+      .alerts-container {
+        margin-bottom: 20px;
+      }
+    </style>
   </head>
   <body>
     <div class="login-container">
@@ -18,7 +48,19 @@
           />
         </div>
         <h2>Sign In</h2>
-        <form action="{% url 'home' %}" method="post">
+        
+        <!-- Messages section -->
+        <div class="alerts-container">
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+        </div>
+
+        <form action="{% url 'login' %}" method="post">
           {% csrf_token %}
           <input
             type="text"
