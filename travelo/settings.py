@@ -56,7 +56,11 @@ ROOT_URLCONF = 'travelo.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / "templates"],
+        'DIRS': [
+            BASE_DIR / "templates",
+            BASE_DIR / "travel_plus_main" / "users" / "templates" / "users"
+        ],
+        
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

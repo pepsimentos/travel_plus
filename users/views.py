@@ -67,7 +67,7 @@ def package_details(request, package_id):
         'users': users,    # List of users for agents to pick
         'is_agent': is_agent(request.user),  # Role check for conditional rendering
     }
-    return render(request, 'package_details.html', context)
+    return render(request, 'users/package_details.html', context)
 
 @login_required
 @transaction.atomic
