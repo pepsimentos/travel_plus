@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Flight, FlightBooking, Hotel, HotelBooking, Package, Agent
+from .models import Flight, FlightBooking, Hotel, HotelBooking, Package, Agent, PackageHotel, PackageFlight
 
 # Register Flight model
 @admin.register(Flight)
@@ -43,3 +43,12 @@ class PackageAdmin(admin.ModelAdmin):
     list_display = ('package_id', 'pkg_start_date', 'pkg_end_date', 'pkg_destination', 'package_price', 'agent')
     search_fields = ('pkg_destination', 'agent__agent_first_name', 'agent__agent_last_name')
     list_filter = ('pkg_start_date', 'pkg_end_date', 'agent')
+
+class PackageFlightAdmin(admin.ModelAdmin):
+    list_display = ('package', 'flight')
+
+class PackageHotelAdmin(admin.ModelAdmin):
+    list_display = ('package', 'hotel')
+
+admin.site.register(PackageFlight, PackageFlightAdmin)
+admin.site.register(PackageHotel, PackageHotelAdmin)
